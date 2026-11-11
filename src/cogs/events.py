@@ -1,21 +1,42 @@
 import discord
 from discord.ext import commands
 
+WELCOME_CHANNEL_ID = 745828332985122869
+
 class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Logged in as\nName: {self.bot.user.name}\nID: {self.bot.user.id}')
+        print(f'Bot logged in\nName: {self.bot.user.name}\nID: {self.bot.user.id}')
     
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        print(f"{member.name} joined the server!")
+        channel = await self.bot.fetch_channel(WELCOME_CHANNEL_ID)
+        
+        embed = discord.Embed(
+            title=f"Welcome {member.display_name if member.display_name else member.name}!",
+            description="We're so happy you could make it :)",
+            color=discord.Color.green()
+        )
+        embed.set_thumbnail(url=member.display_avatar.url)
+        
+        await channel.send(embed=embed)
     
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        print(f"{member.name} left the server!")
+        channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+        
+        embed = discord.Embed(
+            title=f"Goodbye {member.display_name if member.display_name else member.name}!",
+            description="We're sad to see them go :(",
+            color=discord.Color.red()
+        )
+        embed.set_thumbnail(url=member.display_avatar.url)
+        
+        if channel is not None:
+            await channel.send(embed=embed)
     
     @commands.Cog.listener()
     async def on_message(self, message):

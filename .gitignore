@@ -13,4 +13,4 @@ wheels/
 .env
 
 # Log file
-jadb.log
+logs/

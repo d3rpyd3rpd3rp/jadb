@@ -9,6 +9,15 @@ class General(commands.Cog):
     
     @app_commands.command(name="help", description="Displays the help menu.")
     async def help(self, interaction: discord.Interaction):
+        main_embed = discord.Embed(
+            title="Help Menu",
+            description="""
+This menu gives some additional information about how I work!
+
+Click the buttons below for other screens :)
+""",
+            color=discord.Color.ash_embed()
+        )
         general_embed = discord.Embed(
             title="General Commands",
             description=(
@@ -40,7 +49,7 @@ class General(commands.Cog):
         ])
         
         await interaction.response.send_message(
-            embed=general_embed,
+            embed=main_embed,
             view=view,
             ephemeral=True
         )
@@ -54,8 +63,8 @@ class General(commands.Cog):
         )
         embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         await interaction.response.send_message(
-            content=interaction.user.mention,
-            embed=embed
+            embed=embed,
+            ephemeral=True
         )
     
     @app_commands.command(name="serverinfo", description="Gives information about the server.")
