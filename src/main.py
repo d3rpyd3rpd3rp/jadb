@@ -3,11 +3,11 @@ from discord.ext import commands
 import logging
 from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
-import os
+from os import getenv
 
 load_dotenv()
 handler = RotatingFileHandler(
-    filename=os.getenv('LOG_FILE'),
+    filename=getenv('LOG_FILE'),
     encoding="utf-8",
     maxBytes=5 * 1024 * 1024,
     backupCount=5,
@@ -39,4 +39,4 @@ class JADB(commands.Bot):
 
 bot = JADB()
     
-bot.run(os.getenv('DISCORD_TOKEN'), log_handler=handler, log_level=logging.DEBUG)
+bot.run(getenv('DISCORD_TOKEN'), log_handler=handler, log_level=logging.DEBUG)

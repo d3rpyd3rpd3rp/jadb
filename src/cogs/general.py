@@ -30,7 +30,7 @@ Click the buttons below for other screens :)
         moderation_embed = discord.Embed(
             title="Moderation Commands",
             description=(
-                "No commands yet :("
+                "/member - Change your role from guest to member!"
             ),
             color=discord.Color.red()
         )
@@ -92,7 +92,8 @@ Click the buttons below for other screens :)
         )
         embed.set_thumbnail(url=guild.icon.url)
         await interaction.response.send_message(
-            embed=embed
+            embed=embed,
+            ephemeral=True
         )
 
 async def setup(bot):

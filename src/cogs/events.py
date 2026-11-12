@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-
-WELCOME_CHANNEL_ID = 745828332985122869
+from os import getenv
 
 class Events(commands.Cog):
     def __init__(self, bot):
@@ -13,7 +12,7 @@ class Events(commands.Cog):
     
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = await self.bot.fetch_channel(WELCOME_CHANNEL_ID)
+        channel = await self.bot.fetch_channel(int(getenv('WELCOME_CHANNEL_ID')))
         
         embed = discord.Embed(
             title=f"Welcome {member.display_name if member.display_name else member.name}!",
@@ -26,7 +25,7 @@ class Events(commands.Cog):
     
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+        channel = self.bot.get_channel(int(getenv('WELCOME_CHANNEL_ID')))
         
         embed = discord.Embed(
             title=f"Goodbye {member.display_name if member.display_name else member.name}!",
