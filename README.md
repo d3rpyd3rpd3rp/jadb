@@ -13,7 +13,8 @@ coding-wise and usage-wise.
 - `/serverinfo` : The bot displays information about the Discord server the command was used in.
 
 ### Moderation
-- `NULL` : for now, commands to come
+- `/member` : Change your role from guest to member!
+- `/maintenance` : Enable or disable maintenance mode for JADB. (Admin Only)
 
 ### Fun
 - `NULL` : for now, commands to come
