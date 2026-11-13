@@ -8,6 +8,14 @@ class Events(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
+        if self.bot.maintenance_mode:
+            await self.bot.change_presence(
+                status=discord.Status.invisible
+            )
+        else:
+            await self.bot.change_presence(
+                status=discord.Status.online
+            )
         print(f'Bot logged in\nName: {self.bot.user.name}\nID: {self.bot.user.id}')
     
     @commands.Cog.listener()

@@ -55,6 +55,39 @@ class Moderation(commands.Cog):
             ),
             ephemeral=True
         )
+    
+    @app_commands.command(name="maintenance", description="Enable or disable maintenance mode for JADB.")
+    @app_commands.default_permissions(administrator=True)
+    async def maintenance(self, interaction: discord.Interaction, enabled: bool):
+        if interaction.user.id not in self.bot.developer_ids:
+            await interaction.response.send_message(
+                embed=discord.Embed(
+                    title="Error",
+                    description="You do not have permission to use this command",
+                    color=discord.Color.red()
+                ),
+                ephemeral=True
+            )
+        
+        self.bot.maintenance_mode = enabled
+        self.bot.save_state()
+        
+        if enabled:
+            await self.bot.change_presence(
+                status=discord.Status.invisible
+            )
+        else:
+            await self.bot.change_presence(
+                status=discord.Status.online
+            )
+        await interaction.response.send_message(
+            embed=discord.Embed(
+                title="Maintenance Mode",
+                description=f"Has been set {enabled}",
+                color=discord.Color.red()
+            ),
+            ephemeral=True
+        )
 
 async def setup(bot):
     await bot.add_cog(Moderation(bot))
